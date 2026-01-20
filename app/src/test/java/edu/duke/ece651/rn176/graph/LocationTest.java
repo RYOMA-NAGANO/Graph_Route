@@ -11,4 +11,9 @@ public class LocationTest {
     assertEquals("Gondor", testLoc.getName());
   }
 
+  @Test
+  public void test_toString() {
+    Location testLocation = new Location("Mordor");
+    assertEquals("Mordor", testLocation.toString());
+  }
 }
