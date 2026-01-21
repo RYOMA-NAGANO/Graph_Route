@@ -1,8 +1,6 @@
 package edu.duke.ece651.rn176.graph;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 /**
  * This class represents a Location (i.e., Node) in our
