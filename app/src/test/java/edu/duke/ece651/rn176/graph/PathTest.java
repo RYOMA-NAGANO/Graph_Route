@@ -56,5 +56,25 @@ class PathTest {
         Path p3 = p2.extendBy(e3);
         assertEquals("{start -> middle1(1) -> middle2(7) -> end(12)}", p3.toString());
     }
+    @Test
+    public void test_constructor_null_loc(){
+        assertThrows(NullPointerException.class, () -> new Path(null));
+    }
+
+    @Test
+    public void test_hashCode_equals() {
+        Path empty2 = new Path(start);
+        assertEquals(empty.hashCode(), empty2.hashCode());
+        assertEquals(empty, empty2);
+        Path p1 = empty.extendBy(e1).extendBy(e2);
+        Path p2 = empty.extendBy(e1).extendBy(e2);
+        assertEquals(p1.hashCode(), p2.hashCode());
+        assertEquals(p1, p2);
+        assertNotEquals(empty.hashCode(), p1.hashCode());
+        assertNotEquals(empty, p1);
+        assertNotEquals(empty, null);
+        assertEquals(empty, empty);
+        assertNotEquals(empty, start);
+    }
 
 }

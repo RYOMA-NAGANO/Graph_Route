@@ -55,31 +55,22 @@ public class Path {
     public int hashCode(){
         final int prime = 1;
         int result = 1;
-        result = prime * result + ((edges == null) ? 0 : edges.hashCode());
-        result = prime * result + ((start == null) ? 0 : start.hashCode());
+        result = prime * result + edges.hashCode();
+        result = prime * result + start.hashCode();
         return result;
     }
     @Override
     public boolean equals(Object obj){
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         Path other = (Path) obj;
-        if (edges == null) {
-            if (other.edges != null)
-                return false;
-        }
-        else if (!edges.equals(other.edges))
-            return false;
-        if (start == null) {
-            if (other.start != null)
-                return false;
-        }
-        else if (!start.equals(other.start))
-            return false;
-        return true;
+        return (edges.equals(other.edges) && start.equals(other.start));
     }
 }
