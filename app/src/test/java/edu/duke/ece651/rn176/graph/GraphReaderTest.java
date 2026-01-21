@@ -53,7 +53,7 @@ class GraphReaderTest {
     }
     @Test
     public void test_readGraph_undef_nodes() throws IOException {
-        String data = "Mordor:Gondor:99:Rohan:42\n" + "Rohan:Shire:12\n" + "Shire:Bire:23";
+        String data = "Mordor:Gondor:99:Rohan:42\n" + "Rohan:Shire:12\n" + "Shire:Brie:23";
         Reader r = readerFromString(data);
         GraphReader gr = new GraphReader(r);
         IllegalArgumentException exn = assertThrows(IllegalArgumentException.class, ()->gr.readGraph());
@@ -67,9 +67,29 @@ class GraphReaderTest {
 
     @Test
     public void test_readGraph_graph1() throws IOException {
-        InputStream st = getClass().getClassLoader().getResourceAsStream("graph1.txt");
+        InputStream st = getClass().getClassLoader().getResourceAsStream("graphs/graph1.txt");
         InputStreamReader read =  new InputStreamReader(st);
         GraphReader gr = new GraphReader(read);
         Graph g = gr.readGraph();
+        transformAndCheckIterableNoOrder(g.getLocations(), Location::getName, "Durham", "Philadelphia", "Louisville", "Montreal", "Dallas");
+        checkEdgesFor(g, "Durham", "Philadelphia | 370",
+                "Dallas | 1039",
+                "Louisville | 508");
+
+        checkEdgesFor(g, "Philadelphia", "Durham | 372",
+                "Louisville | 628",
+                "Montreal | 408");
+
+        checkEdgesFor(g, "Louisville", "Durham | 500",
+                "Philadelphia | 643",
+                "Dallas | 775",
+                "Montreal | 862");
+
+        checkEdgesFor(g, "Dallas", "Louisville | 754",
+                "Durham | 1053");
+
+        checkEdgesFor(g, "Montreal", "Philadelphia | 399",
+                "Louisville | 873");
+
     }
 }
