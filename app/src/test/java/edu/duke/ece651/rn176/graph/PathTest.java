@@ -17,7 +17,6 @@ class PathTest {
     Location mid1 = new Location("middle1");
     Location mid2 = new Location("middle2");
     Location end = new Location("end");
-
     Edge e1 = new Edge(mid1, 1);
     Edge e2 = new Edge(mid2, 7);
     Edge e3 = new Edge(end, 12);
