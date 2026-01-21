@@ -1,13 +1,7 @@
 package edu.duke.ece651.rn176.graph;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -27,15 +21,7 @@ public class LocationTest {
   }
 
   private void checkEdgeIterable(Iterable<Edge> it, Edge... expected) {
-    Set<Edge> expectedSet = new HashSet<>();
-    for(Edge e: expected) {
-      expectedSet.add(e);
-    }
-    for(Edge e: it) {
-      assertTrue(expectedSet.contains(e));
-      expectedSet.remove(e);
-    }
-    assertTrue(expectedSet.isEmpty());
+    TestUtils.checkIterableWithoutOrder(it, expected);
   }
 
   @Test
@@ -58,6 +44,5 @@ public class LocationTest {
   public void test_duplicate_dest() {
     rohan.addEdge(new Edge(gondor, 12));
     assertThrows(IllegalArgumentException.class, ()->rohan.addEdge(new Edge(gondor, 57)));
-
   }
 }

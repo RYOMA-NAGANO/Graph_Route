@@ -3,9 +3,6 @@ package edu.duke.ece651.rn176.graph;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class GraphTest {
     @Test
     public void test_getOrCreate(){
@@ -24,30 +21,34 @@ public class GraphTest {
         assertEquals("Mordor", e.getName());
     }
 
-    private void checkStringIterable(Iterable<String> it, String... expected) {
-        Set<String> expectedSet = new HashSet<>();
-        for(String e: expected) {
-            expectedSet.add(e);
-        }
-        for(String e: it) {
-            assertTrue(expectedSet.contains(e));
-            expectedSet.remove(e);
-        }
-
-        assertTrue(expectedSet.isEmpty());
-    }
     @Test
     public void test_getUndefinedNames(){
         Graph g = new Graph();
+        TestUtils.checkIterableWithoutOrder(g.getUndefinedNames());
         g.getOrCreate("Gondor", false);
+        TestUtils.checkIterableWithoutOrder(g.getUndefinedNames(), "Gondor");
         g.getOrCreate("Gondor", true);
+        TestUtils.checkIterableWithoutOrder(g.getUndefinedNames());
         g.getOrCreate("Mordor", true);
+        TestUtils.checkIterableWithoutOrder(g.getUndefinedNames());
         g.getOrCreate("Mordor", false);
         g.getOrCreate("Rohan", false);//undefined
+        TestUtils.checkIterableWithoutOrder(g.getUndefinedNames(), "Rohan");
         g.getOrCreate("Shire", false);//undefined
         g.getOrCreate("Shire", false);
         g.getOrCreate("Shire", false);
         g.getOrCreate("Shire", false);
+        TestUtils.checkIterableWithoutOrder(g.getUndefinedNames(), "Rohan", "Shire");
         g.getUndefinedNames(); // should be {"Shire", "Rohan"}
+    }
+    @Test
+    public void test_getLocations(){
+        Graph g = new Graph();
+        Location mordor = g.getOrCreate("Mordor", true);
+        Location gondor = g.getOrCreate("Gondor", true);
+        Location shire = g.getOrCreate("Shire", true);
+        Location scadrial = g.getOrCreate("Scadrial",  true);
+        Location roshar =  g.getOrCreate("Roshar", true);
+        TestUtils.checkIterableWithoutOrder(g.getLocations(), mordor, gondor, shire, scadrial, roshar);
     }
 }
