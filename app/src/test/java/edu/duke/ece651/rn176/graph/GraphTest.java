@@ -33,6 +33,7 @@ public class GraphTest {
             assertTrue(expectedSet.contains(e));
             expectedSet.remove(e);
         }
+
         assertTrue(expectedSet.isEmpty());
     }
     @Test
