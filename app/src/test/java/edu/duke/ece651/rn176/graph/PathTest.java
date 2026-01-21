@@ -30,7 +30,6 @@ class PathTest {
     public void test_empty_path(){
         pathCheckHelper(empty, start, new ArrayList<>(), 0);
     }
-
     @Test
     public void test_extendby(){
         ArrayList<Edge> expected = new ArrayList<>();
