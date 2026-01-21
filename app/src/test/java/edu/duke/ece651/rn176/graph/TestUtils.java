@@ -1,5 +1,8 @@
 package edu.duke.ece651.rn176.graph;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,5 +36,9 @@ public class TestUtils {
         void transformAndCheckIterableNoOrder(Iterable<T> input, Function<T,R> transform, R... expected) {
         Iterable<R> transformedInput = transformIterable(input, transform);
         checkIterableWithoutOrder(transformedInput, expected);
+    }
+    public static Reader readerFromString(String input){
+        ByteArrayInputStream bytes = new ByteArrayInputStream(input.getBytes());
+        return new InputStreamReader(bytes);
     }
 }

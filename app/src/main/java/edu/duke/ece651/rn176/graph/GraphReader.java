@@ -3,6 +3,7 @@ package edu.duke.ece651.rn176.graph;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Collection;
 
 public class GraphReader {
      private final Reader input;
@@ -27,10 +28,22 @@ public class GraphReader {
      public Graph readGraph() throws IOException {
          Graph ans = new Graph();
          try (BufferedReader br = new BufferedReader(input)) {
-             String line;
-             while ((line = br.readLine()) != null) {
+             String line = br.readLine();
+             while ((line != null)){
                  parseLine(line, ans);
+                 line = br.readLine();
              }
+         }
+         Collection<String> undef = ans.getUndefinedNames();
+         if(undef.size() > 0){
+             StringBuilder message = new StringBuilder();
+             message.append("The following Locations were undefined:\n");
+             for (String s: undef){
+                 message.append(" ");
+                 message.append(s);
+                 message.append("\n");
+             }
+             throw new IllegalArgumentException(message.toString());
          }
          return ans;
      }
