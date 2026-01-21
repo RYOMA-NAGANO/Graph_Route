@@ -76,6 +76,7 @@ class GraphReaderTest {
                 "Dallas | 1039",
                 "Louisville | 508");
 
+
         checkEdgesFor(g, "Philadelphia", "Durham | 372",
                 "Louisville | 628",
                 "Montreal | 408");
