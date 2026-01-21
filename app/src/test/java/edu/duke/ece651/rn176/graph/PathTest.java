@@ -14,6 +14,13 @@ class PathTest {
     Location locB = new Location("B");
     Edge edgeB = new Edge(locB, 15);
     Path empty = new Path(start);
+    Location mid1 = new Location("middle1");
+    Location mid2 = new Location("middle2");
+    Location end = new Location("end");
+
+    Edge e1 = new Edge(mid1, 1);
+    Edge e2 = new Edge(mid2, 7);
+    Edge e3 = new Edge(end, 12);
 
     private void pathCheckHelper(Path toCheck, Location start, ArrayList<Edge> expectedEdges, int expectedWeight){
         assertEquals(start, toCheck.getStart());
@@ -37,4 +44,19 @@ class PathTest {
         expected.add(edgeB);
         pathCheckHelper(p2, start, expected, 27);
     }
+
+    @Test
+    public void test_toString() {
+        assertEquals("{start}", empty.toString());
+
+        Path p1 = empty.extendBy(e1);
+        assertEquals("{start -> middle1(1)}", p1.toString());
+
+        Path p2 = p1.extendBy(e2);
+        assertEquals("{start -> middle1(1) -> middle2(7)}", p2.toString());
+
+        Path p3 = p2.extendBy(e3);
+        assertEquals("{start -> middle1(1) -> middle2(7) -> end(12)}", p3.toString());
+    }
+
 }
