@@ -1,0 +1,6 @@
+Durham:Philadelphia:370:Dallas:1039:Louisville:508
+Philadelphia:Durham:372:Louisville:628:Montreal:408
+Louisville:Durham:500:Philadelphia:643:Dallas:775:Montreal:862
+Dallas:Louisville:754:Durham:1053
+Montreal:Philadelphia:399:Louisville:873
+
