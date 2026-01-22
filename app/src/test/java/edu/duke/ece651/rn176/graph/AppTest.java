@@ -52,9 +52,10 @@ class AppTest {
                 "2. The source location name" + System.lineSeparator() +
                 "3. The destination location name" + System.lineSeparator();
         runMainAndCheck("", usage, "graphs/graph2.txt", "A");
+        runMainAndCheck("", usage);
         runMainAndCheck("", usage, "graphs/graph2.txt", "A", "B", "C");
         runMainAndCheck("No path" + System.lineSeparator(), "", "graphs/graph2.txt", "F", "A");
-        runMainAndCheck("", "Could not read file invalid.txt (No such file or directory)\n", "invalid.txt", "A", "G");
+        runMainAndCheckRaw("", "Could not read file invalid.txt: invalid.txt (The system cannot find the file specified)" + System.lineSeparator(), "invalid.txt", "A", "G");
     }
 
 }
