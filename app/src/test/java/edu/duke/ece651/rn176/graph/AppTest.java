@@ -55,7 +55,7 @@ class AppTest {
         runMainAndCheck("", usage);
         runMainAndCheck("", usage, "graphs/graph2.txt", "A", "B", "C");
         runMainAndCheck("No path" + System.lineSeparator(), "", "graphs/graph2.txt", "F", "A");
-        runMainAndCheckRaw("", "Could not read file invalid.txt: invalid.txt (The system cannot find the file specified)" + System.lineSeparator(), "invalid.txt", "A", "G");
+        runMainAndCheckRaw("", "Could not read file invalid.txt: invalid.txt (No such file or directory)" + System.lineSeparator(), "invalid.txt", "A", "G");
     }
 
 }
