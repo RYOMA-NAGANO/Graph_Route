@@ -37,7 +37,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'org.example.App'
+    mainClass = 'edu.duke.ece651.rn176.graph.App'
 }
 
 tasks.named('test') {
