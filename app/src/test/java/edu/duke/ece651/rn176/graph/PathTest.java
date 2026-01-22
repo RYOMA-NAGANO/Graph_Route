@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static edu.duke.ece651.rn176.graph.TestUtils.checkIterableWithoutOrder;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PathTest {
@@ -76,5 +75,28 @@ class PathTest {
         assertEquals(empty, empty);
         assertNotEquals(empty, start);
     }
-
+    @Test
+    public void test_compareTo(){
+        assertEquals(0, empty.compareTo(empty));
+        Path p1 = empty.extendBy(edgeA);
+        assertTrue(p1.compareTo(empty) > 0);
+        assertTrue(p1.compareTo(p1) == 0);
+        assertTrue(empty.compareTo(p1) < 0);
+        Path p2 = p1.extendBy(edgeB);
+        assertTrue(p1.compareTo(p2) < 0);
+        assertTrue(p2.compareTo(p2) == 0);
+        assertTrue(p2.compareTo(p1) > 0);
+        Path p3 = empty.extendBy(e2);
+        assertTrue(p3.compareTo(p2) < 0);
+        assertTrue(p3.compareTo(p3) == 0);
+        assertTrue(p2.compareTo(p3) > 0);
+    }
+    @Test
+    public void test_getEnd(){
+        assertEquals(start, empty.getEnd());
+        Path p1 = empty.extendBy(edgeA);
+        assertEquals(locA,p1.getEnd());
+        Path p2 = p1.extendBy(edgeB);
+        assertEquals(locB,p2.getEnd());
+    }
 }

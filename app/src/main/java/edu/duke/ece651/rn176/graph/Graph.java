@@ -35,4 +35,41 @@ public class Graph {
         }
         return answer;
     }
+    @Override
+    public String toString(){
+        StringBuilder ans = new StringBuilder("<");
+        String sep = "";
+        ArrayList<String> keys = new ArrayList<>(defedLocs);
+        Collections.sort(keys);
+        for(String s: keys){
+            ans.append(sep);
+            ans.append(s);
+            sep = ",";
+        }
+        ans.append(">");
+        return ans.toString();
+    }
+
+    public Path shortestPath(Location start, Location end){
+        Path empty = new Path(start);
+        PriorityQueue<Path> paths = new PriorityQueue<>();
+        paths.add(empty);
+        HashSet<Location> visited = new HashSet<>();
+        while(paths.size() > 0){
+            Path curr = paths.remove();
+            Location last = curr.getEnd();
+            if(last.equals(end)){
+                return curr;
+            }
+            if(visited.contains(last)){
+                continue;
+            }
+            visited.add(last);
+            for(Edge e: last.getEdges()){
+                Path newPath = curr.extendBy(e);
+                paths.add(newPath);
+            }
+        }
+        return null;
+    }
 }

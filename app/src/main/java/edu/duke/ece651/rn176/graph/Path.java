@@ -1,10 +1,9 @@
 package edu.duke.ece651.rn176.graph;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-public class Path {
+public class Path implements Comparable<Path>{
     private final Location start;
     private final List<Edge> edges;
     private final int totalWeight;
@@ -25,6 +24,17 @@ public class Path {
         this.edges = edges;
         this.totalWeight = totalWeight;
     }
+    @Override
+    public int compareTo(Path o) {
+        return this.totalWeight - o.totalWeight;
+    }
+    public Location getEnd(){
+        if (edges.isEmpty()){
+            return start;
+        }
+        return edges.get(edges.size() - 1).getDestination();
+    }
+
     public Path extendBy(Edge e){
         return new Path(start, edges, totalWeight, e);
     }
@@ -73,4 +83,5 @@ public class Path {
         Path other = (Path) obj;
         return (edges.equals(other.edges) && start.equals(other.start));
     }
+
 }
