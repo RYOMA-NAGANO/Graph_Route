@@ -15,7 +15,7 @@ class GraphReaderTest {
     GraphReader gr = new GraphReader(null);
 
     private void checkEdgesFor(Graph g, String name, String... expected){
-        Location loc = g.getOrCreate(name, false);
+        Location loc = g.getLocation(name);
         transformAndCheckIterableNoOrder(loc.getEdges(), (e) ->e.getDestination().getName() + " | " + e.getWeight(), expected);
     }
     @Test
@@ -24,8 +24,8 @@ class GraphReaderTest {
         transformAndCheckIterableNoOrder(g.getLocations(), Location::getName, "Mordor", "Gondor", "Rohan");//(loc)->loc.getName
         checkIterableWithoutOrder(g.getUndefinedNames(), "Gondor", "Rohan");
         checkEdgesFor(g, "Mordor", "Gondor | 99", "Rohan | 37");
-        checkIterableWithoutOrder(g.getOrCreate("Gondor", false).getEdges());
-        checkIterableWithoutOrder(g.getOrCreate("Rohan", false).getEdges());
+        checkIterableWithoutOrder(g.getLocation("Gondor").getEdges());
+        checkIterableWithoutOrder(g.getLocation("Rohan").getEdges());
     }
     @Test
     public void test_parseLine_empty(){

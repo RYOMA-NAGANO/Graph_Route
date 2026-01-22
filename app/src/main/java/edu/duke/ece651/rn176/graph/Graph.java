@@ -23,6 +23,10 @@ public class Graph {
         }
         return answer;
     }
+    public Location getLocation(String name){
+        return nodes.get(name);
+    }
+
     public Iterable<Location> getLocations(){
         return nodes.values();
     }

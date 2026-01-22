@@ -79,8 +79,8 @@ public class GraphTest {
         return g;
     }
     private void checkShortestPath(Graph g, String startName, String endName, int expectedCost, String... expectedNames) {
-        Location start = g.getOrCreate(startName, false);
-        Location end = g.getOrCreate(endName, false);
+        Location start = g.getLocation(startName);
+        Location end = g.getLocation(endName);
         Path p = g.shortestPath(start, end);
 
         if (expectedNames == null) {
