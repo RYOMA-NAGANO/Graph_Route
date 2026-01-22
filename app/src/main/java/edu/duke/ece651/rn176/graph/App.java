@@ -8,9 +8,9 @@ import java.util.NoSuchElementException;
 public class App {
     static void reportUsage(PrintStream err) {
         err.println("This program requires three command line arguments:");
-        err.println("  1. The graph file to read");
-        err.println("  2. The source location name");
-        err.println("  3. The destination location name");
+        err.println("1. The graph file to read");
+        err.println("2. The source location name");
+        err.println("3. The destination location name");
     }
     public static Location getLocation(Graph g, String name) {
         Location ans = g.getLocation(name);
