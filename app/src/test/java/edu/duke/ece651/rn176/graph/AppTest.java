@@ -48,9 +48,9 @@ class AppTest {
         runMainAndCheck("{A -> B(1) -> C(5) -> E(1) -> F(10)}" + System.lineSeparator(), "", "graphs/graph2.txt", "A", "F");
         runMainAndCheck("", "There is no Location named G" + System.lineSeparator(), "graphs/graph2.txt", "A", "G");
         String usage = "This program requires three command line arguments:" + System.lineSeparator() +
-                "  1. The graph file to read" +  System.lineSeparator() +
-                "  2. The source location name" + System.lineSeparator() +
-                "  3. The destination location name"  + System.lineSeparator();
+                "1. The graph file to read" + System.lineSeparator() +
+                "2. The source location name" + System.lineSeparator() +
+                "3. The destination location name" + System.lineSeparator();
         runMainAndCheck("", usage, "graphs/graph2.txt", "A");
         runMainAndCheck("", usage, "graphs/graph2.txt", "A", "B", "C");
         runMainAndCheck("No path" + System.lineSeparator(), "", "graphs/graph2.txt", "F", "A");
