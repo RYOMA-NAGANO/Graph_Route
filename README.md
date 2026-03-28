@@ -1,93 +1,140 @@
-# rn176-group
+# Graph Route
 
+`Graph Route` is a Java command-line application that reads a weighted directed graph from a text file and prints the shortest path between two named locations.
 
+The project is built with Gradle, targets Java 21, and includes JUnit tests for graph parsing, pathfinding, and CLI behavior.
 
-## Getting started
+## Features
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+- Reads graphs from a simple text format.
+- Models locations, weighted edges, and paths as Java classes.
+- Computes shortest paths using a priority-queue-based search.
+- Reports helpful errors for bad input, missing files, and unknown locations.
+- Includes unit tests for the core graph logic and application entry point.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Requirements
 
-## Add your files
+- Java 21
+- The included Gradle wrapper (`gradlew` or `gradlew.bat`)
 
-* [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+## Project Layout
 
+```text
+app/src/main/java/edu/duke/ece651/rn176/graph/
+  App.java          CLI entry point
+  Graph.java        graph storage and shortest-path search
+  GraphReader.java  parser for graph files
+  Location.java     graph node
+  Edge.java         weighted directed edge
+  Path.java         path value object
+
+app/src/test/
+  java/...          JUnit test suite
+  resources/graphs/ sample graph inputs
 ```
-cd existing_repo
-git remote add origin https://gitlab.oit.duke.edu/rn176/rn176-group.git
-git branch -M main
-git push -uf origin main
+
+## Graph File Format
+
+Each line defines one location and its outgoing edges:
+
+```text
+Location:Destination1:Weight1:Destination2:Weight2:...
 ```
 
-## Integrate with your tools
+Examples:
 
-* [Set up project integrations](https://gitlab.oit.duke.edu/rn176/rn176-group/-/settings/integrations)
+```text
+Durham:Philadelphia:370:Dallas:1039:Louisville:508
+Philadelphia:Durham:372:Louisville:628:Montreal:408
+F
+```
 
-## Collaborate with your team
+Notes:
 
-* [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+- A line with only a location name, such as `F`, defines a node with no outgoing edges.
+- Blank lines are ignored.
+- Edge weights are parsed as integers.
+- The graph is directed, so `A:B:5` does not automatically create `B:A:5`.
+- Every referenced destination must also appear as a defined location somewhere in the file.
 
-## Test and Deploy
+## Build
 
-Use the built-in continuous integration in GitLab.
+From the repository root:
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+```bash
+./gradlew build
+```
 
-***
+On Windows PowerShell:
 
-# Editing this README
+```powershell
+.\gradlew.bat build
+```
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+## Run Tests
 
-## Suggestions for a good README
+```bash
+./gradlew test
+```
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+On Windows PowerShell:
 
-## Name
-Choose a self-explaining name for your project.
+```powershell
+.\gradlew.bat test
+```
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+## Run The App
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+The application expects exactly 3 command-line arguments:
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+1. The graph file path
+2. The source location name
+3. The destination location name
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+Example:
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+```bash
+./gradlew run --args="app/src/test/resources/graphs/graph2.txt A F"
+```
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+On Windows PowerShell:
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+```powershell
+.\gradlew.bat run --args="app/src/test/resources/graphs/graph2.txt A F"
+```
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Expected output:
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+```text
+{A -> B(1) -> C(5) -> E(1) -> F(10)}
+```
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+If no route exists, the program prints:
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+```text
+No path
+```
 
-## License
-For open source projects, say how it is licensed.
+## Error Handling
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+The CLI reports common problems on standard error, including:
+
+- incorrect number of command-line arguments
+- an unreadable or missing graph file
+- a source or destination location that does not exist
+- malformed graph input
+- destination nodes that were referenced but never defined
+
+## Implementation Notes
+
+- `GraphReader` parses the input file and validates that all referenced locations are defined.
+- `Graph.shortestPath(...)` uses a priority queue to return the lowest-cost path it finds.
+- The shortest-path logic is intended for non-negative edge weights.
+
+## Development
+
+This project uses:
+
+- Gradle application plugin for building and running the CLI
+- JUnit 5 for testing
+- Clover plugin configuration for code coverage reporting
